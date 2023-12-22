@@ -41,7 +41,7 @@ import Step3 from './Step3';
 
     const MultiStepForm: React.FC = () => {
     const [step, setStep] = useState(1);
-    
+
     const onSubmit = async (values: any, { resetForm, setSubmitting }: FormikHelpers<any>) => {
         try {
         console.log('Submitting form:', values);
@@ -54,10 +54,10 @@ import Step3 from './Step3';
         setSubmitting(false);
         }
     };
-    
+
     const nextStep = () => setStep((prevStep) => prevStep + 1);
     const prevStep = () => setStep((prevStep) => prevStep - 1);
-    
+
     const renderStep = () => {
         switch (step) {
         case 1:
