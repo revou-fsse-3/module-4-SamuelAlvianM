@@ -2,17 +2,16 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 interface Step3Props {
-prevStep: () => void;
-}
+    prevStep: () => void;
+  }
 
 const Step3: React.FC<Step3Props> = ({ prevStep }) => {
-const { register, handleSubmit, formState: { errors } } = useFormContext();
-
-const onSubmit = (data: any) => {
-
-    console.log('Step 3 data:', data);
-    prevStep();
-};
+    const { register, handleSubmit, formState: { errors } } = useFormContext();
+  
+    const onSubmit = (data: any) => {
+      console.log('Step 3 data:', data);
+      
+    };
 
 return (
     <div>

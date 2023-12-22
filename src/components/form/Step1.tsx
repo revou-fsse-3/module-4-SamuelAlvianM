@@ -3,14 +3,14 @@ import { useFormContext } from 'react-hook-form';
 
 interface Step1Props {
     nextStep: () => void;
-}
+  }
 
-const Step1: React.FC<Step1Props> = ({ nextStep }) => {
+    const Step1: React.FC<Step1Props> = ({ nextStep }) => {
     const { register, handleSubmit, formState: { errors } } = useFormContext();
 
     const onSubmit = (data: any) => {
     console.log(data);
-    nextStep();
+      nextStep(); 
     };
 
     return (

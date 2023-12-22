@@ -1,12 +1,12 @@
-
-import React, { useState } from 'react';
-import { Formik, Form, FormikProps, FormikHelpers } from 'formik';
+import React from 'react';
+// import { useForm } from 'react-hook-form';
+import { Formik, Form, FormikProps, FormikValues, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 
-
+const MultiStepForm: React.FC = () => {
     const validationSchema = Yup.object().shape({
     
     fullName: Yup.string().required('Full Name is required'),
@@ -37,63 +37,96 @@ import Step3 from './Step3';
     zipCode: '',
     username: '',
     password: '',
+    activeStep: 1,
     };
+    
+    const onSubmit = async (
+        values: FormikValues,
+        { setSubmitting }: FormikHelpers<typeof initialValues> ) => {
 
-    const MultiStepForm: React.FC = () => {
-    const [step, setStep] = useState(1);
-
-    const onSubmit = async (values: any, { resetForm, setSubmitting }: FormikHelpers<any>) => {
         try {
-        console.log('Submitting form:', values);
-        console.log('Form submitted successfully!');
-        resetForm();
-        // Redirect or perform other actions after successful submission
-        } catch (error) {
+            console.log('Submitting form:', values);
+            console.log('Form submitted successfully!');
+            
+            const response = await submitFormDataToAPI(values);
+
+            if (response.status === 200) {
+            console.log('Form submitted successfully!');
+
+          // Redirect or perform other actions after successful submission
+        } else {
+            console.error('Form submission failed', response.statusText);
+        }
+    } catch (error) {
         console.error('Form submission error:', error);
-        } finally {
+    } finally {
         setSubmitting(false);
-        }
+    }
     };
 
-    const nextStep = () => setStep((prevStep) => prevStep + 1);
-    const prevStep = () => setStep((prevStep) => prevStep - 1);
+    const submitFormDataToAPI = async (formData: FormikValues) => {
+    const response = await fetch('https://api.example.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        });
 
-    const renderStep = () => {
-        switch (step) {
-        case 1:
-            return <Step1 nextStep={nextStep} />;
-        case 2:
-            return <Step2 nextStep={nextStep} prevStep={prevStep} />;
-        case 3:
-             return <Step3 prevStep={prevStep} />;
-        default:
-            return null;
-        }
+        return response;
     };
+    
+        const nextStep = (setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void) =>
+        setFieldValue('activeStep', (prevStep: number) => prevStep + 1);
+    
+        const prevStep = (setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void) =>
+        setFieldValue('activeStep', (prevStep: number) => prevStep - 1);
     
         return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-            {(formikProps: FormikProps<any>) => (
+        <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+        >
+        {({
+            values,
+            handleSubmit,
+            isSubmitting,
+            setFieldValue,
+        }: FormikProps<typeof initialValues>) => (
             <Form>
-                {renderStep()}
-                <div>
-                {step !== 1 && <button type="button" onClick={prevStep}>Previous</button>}
-                {step !== 3 ? (
-                    <button type="button" onClick={nextStep}>
-                    Next
-                    </button>
-                ) : (
-                    <button type="submit" disabled={formikProps.isSubmitting}>
-                    Submit
-                    </button>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+              {/* Step 1 */}
+                {values.activeStep === 1 && <Step1 nextStep={() => nextStep(setFieldValue)} />}
+              {/* Step 2 */}
+                {values.activeStep === 2 && (
+                <Step2
+                    nextStep={() => nextStep(setFieldValue)}
+                    prevStep={() => prevStep(setFieldValue)}
+                />
                 )}
-                </div>
+              {/* Step 3 */}
+                {values.activeStep === 3 && <Step3 prevStep={() => prevStep(setFieldValue)} />}
+              {/* Submit Button at Step 3 */}
+                {values.activeStep === 3 && (
+                <button
+            type="submit"
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+            e.preventDefault();
+            handleSubmit(e as unknown as React.MouseEvent<HTMLFormElement>);
+            }}
+            disabled={isSubmitting}
+        >
+            Submit
+        </button>
+                )}
+            </div>
             </Form>
-            )}
+        )}
         </Formik>
-      </div>
+    </div>
     );
-    };
+};
 
 export default MultiStepForm;

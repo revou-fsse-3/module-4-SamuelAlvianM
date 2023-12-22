@@ -1,45 +1,18 @@
-// import React from 'react';
-// import { useForm, SubmitHandler } from 'react-hook-form';
-// import { FormikProps } from 'formik';
-
-// interface Step2Props {
-//   nextStep: () => void;
-//   prevStep: () => void;
-//   formikProps: FormikProps<{ streetAddress: string; city: string; state: string; zipCode: string }>;
-// }
-
-// const Step2: React.FC<Step2Props> = ({ nextStep, prevStep, formikProps }) => {
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm<{ streetAddress: string; city: string; state: string; zipCode: string }>();
-
-//   const onSubmit: SubmitHandler<{ streetAddress: string; city: string; state: string; zipCode: string }> = (data) => {
-//     // Validate form data if needed
-//     console.log('Step 2 data:', data);
-
-//     // Move to the next step
-//     nextStep();
-//   };
-
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 interface Step2Props {
     nextStep: () => void;
     prevStep: () => void;
-}
+  }
+
 
 const Step2: React.FC<Step2Props> = ({ nextStep, prevStep }) => {
     const { register, handleSubmit, formState: { errors } } = useFormContext();
 
     const onSubmit = (data: any) => {
-    // Validate form data if needed
-    console.log('Step 2 data:', data);
-
-    // Move to the next step
-    nextStep();
+    console.log(data);
+    nextStep(); 
     };
 
     return (
