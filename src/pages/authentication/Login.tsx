@@ -23,6 +23,7 @@ const Login = () => {
     const context = useContext<ContextType>(AppContext)
     const setOpen = context?.setOpen
     const setMessage = context?.setMessage
+    
 
     const {
         handleSubmit,
@@ -102,7 +103,7 @@ const Login = () => {
                     fullWidth onClick={handleRegister}
                     sx={{ mt: 1, mb: 1, backgroundColor: "#33186B", color: "#80BCBD", fontWeight: 600 }}
                     >
-                        Make an Account
+                        Make new Account
                     </Button>
 
                 </CardContent>

@@ -1,23 +1,23 @@
-import {
-    Table,
-    TableContainer,
-    Paper,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody,
-    Container,
-    Typography,
-    Button,
-    TableFooter,
-    TablePagination,
-} from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import Logout from '../../components/Logout';
-
-interface Category {
+    import {
+        Table,
+        TableContainer,
+        Paper,
+        TableHead,
+        TableRow,
+        TableCell,
+        TableBody,
+        Container,
+        Typography,
+        Button,
+        TableFooter,
+        TablePagination,
+    } from '@mui/material';
+    import { Link, useNavigate } from 'react-router-dom';
+    import axios from 'axios';
+    import { useEffect, useState } from 'react';
+    import Logout from '../../components/Logout';
+    
+    interface Category {
         id: string;
         name: string;
         is_active: boolean;

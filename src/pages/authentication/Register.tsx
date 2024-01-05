@@ -8,17 +8,17 @@ import { useContext } from "react";
 import { AppContext, ContextType } from "../../Provider";
 
 interface FormProps {
-    name?: string;
+    username?: string;
     email?: string;
     password?: string
 }
 
 const schema = yup
-  .object({
-    name: yup.string().required(),
+    .object({
+    username: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().min(5).required(),
-  })
+    })
 .required()
 
 
@@ -45,7 +45,7 @@ const Register = () => {
     const onSubmit = async (data: FormProps) => {
         try {
             await axios.post('https://mock-api.arikmpt.com/api/user/register', {
-                name: data.name,
+                username: data.username,
                 email: data.email,
                 password: data.password
             })
@@ -75,10 +75,10 @@ const Register = () => {
                     </Typography>
                     <div className="login-form">
                         <Controller
-                            name="name"
+                            name="username"
                             control={control}
-                            render={({ field }) => <TextField value={field.value} onChange={field.onChange} label="name" variant="outlined" size="small" 
-                                helperText={errors.name?.message} error={!!errors.name}/>}
+                            render={({ field }) => <TextField value={field.value} onChange={field.onChange} label="username" variant="outlined" size="small" 
+                                helperText={errors.username?.message} error={!!errors.username}/>}
                         />
 
                         <Controller
