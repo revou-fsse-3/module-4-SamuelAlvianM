@@ -11,7 +11,7 @@ const Logout = () => {
 
     return (
         <div className='content' style={{ padding: '20px', textAlign: 'center', justifyContent: "center", margin: 0}}>
-        {/* ... (other components) */}
+        
         <Button variant="contained" onClick={handleLogout}>BACK TO LOGIN PAGE</Button>
     </div>
     );

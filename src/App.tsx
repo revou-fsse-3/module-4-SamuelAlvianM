@@ -8,11 +8,11 @@ import {
 import './App.css';
 import Login from "./pages/authentication/Login";
 import Register from "./pages/authentication/Register";
-import List from "./pages/category/List";
-import Edit from "./pages/category/Edit";
-import Add from "./pages/category/Add";
+import List from "./pages/categories/List";
+import Edit from "./pages/categories/Edit";
+import Add from "./pages/categories/Add";
 import { Provider } from "./Provider";
-import PublicLayout from "./layouts/PublicLayout";
+import PublicLayout from "./layout/PublicLayout";
 import { useMemo } from "react";
 
 const PrivateOutlet = () => {

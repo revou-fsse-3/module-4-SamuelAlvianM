@@ -70,7 +70,7 @@ const Add = () => {
                     <Typography sx={{ fontSize: 20 }}>
                         Add New Category
                     </Typography>
-                    <Link to={'/'}>Kembali</Link>
+
                     <div className="login-form">
                         <Controller
                             name="name"
@@ -88,7 +88,7 @@ const Add = () => {
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
                                         value={field.value}
-                                        label="Age"
+                                        label="name"
                                         onChange={field.onChange}
                                         size="small"
                                     >
@@ -100,6 +100,7 @@ const Add = () => {
                         </FormControl>
                     </div>
                     <Button variant="contained" fullWidth onClick={handleSubmit(onSubmit)}>Submit</Button>
+                    <Link to={'/'} style={{fontSize: "16px", color: "red", textAlign: "center", paddingTop: "5px"}}>Cancel Edit</Link>
                 </CardContent>
             </Card>
         </div>

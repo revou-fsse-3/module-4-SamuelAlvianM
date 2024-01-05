@@ -14,11 +14,11 @@ interface FormProps {
 }
 
 const schema = yup
-  .object({
+    .object({
     id: yup.string().required(),
     name: yup.string().required(),
     is_active: yup.boolean().required(),
-  })
+    })
 .required()
 
 const Edit = () => {
@@ -104,9 +104,9 @@ const Edit = () => {
             <Card sx={{ maxWidth: 300 }}>
                 <CardContent className={'login-content'}>
                     <Typography sx={{ fontSize: 14 }}>
-                        Edit Category
+                        EDIT DATA
                     </Typography>
-                    <Link to={'/'}>Kembali</Link>
+                    
                     <div className="login-form">
                         <Controller
                             name="name"
@@ -128,14 +128,17 @@ const Edit = () => {
                                         onChange={field.onChange}
                                         size="small"
                                     >
+
                                         <MenuItem value={'1'}>Active</MenuItem>
                                         <MenuItem value={'0'}>Deactive</MenuItem>
                                     </Select>
                                 )}
                             />
+
                         </FormControl>
                     </div>
                     <Button variant="contained" fullWidth onClick={handleSubmit(onSubmit)}>Submit</Button>
+                    <Link to={'/'} style={{fontSize: "16px", color: "red", textAlign: "center", paddingTop: "5px"}}>Cancel Edit</Link>
                 </CardContent>
             </Card>
         </div>
