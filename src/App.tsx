@@ -1,36 +1,46 @@
-import './App.css'
-import { Form, Formik } from 'formik'
-import Navigation from './Components/features/control/Navigation';
-import { validationSchema } from './Components/features/control/Validation';
+import {
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
+import './App.css';
+import Login from "./pages/authentication/Login";
+import Register from "./pages/authentication/Register";
+import List from "./pages/category/List";
+import Edit from "./pages/category/Edit";
+import Add from "./pages/category/Add";
+import { Provider } from "./Provider";
+import PublicLayout from "./layouts/PublicLayout";
+import { useMemo } from "react";
 
-const initialValue = {
-  username: '',
-  password: '',
-  streetAdress:'',
-  city:'',
-  state:'',
-  zipcode:'',
-  fullname:'',
-  email:'',
-  datebirth:'',
-};
+const PrivateOutlet = () => {
+  const token = window.localStorage.getItem('token')
+  const navigate = useNavigate();
+  const isAuth = useMemo(
+    () => !!token,
+    [navigate]
+  )
+  return isAuth ? <Outlet /> : <Navigate to="/login" />;
+}
 
 function App() {
   return (
-    <>
-      <Formik
-        initialValues={initialValue}
-        validationSchema={validationSchema}
-        onSubmit={(values) => {
-          alert(JSON.stringify(values, null, 1));
-        }}
-      >
-        <Form>
-          <Navigation />
-        </Form>
-      </Formik>
-    </>
-  )
+    <Provider>
+      <Routes>
+        <Route element={<PublicLayout />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route element={<PrivateOutlet />}>
+            <Route path="/" element={<List />} />
+            <Route path="/add" element={<Add />} />
+            <Route path="/edit/:id" element={<Edit />} />
+          </Route>
+        </Route>
+      </Routes>
+    </Provider>
+  );
 }
 
-export default App
+export default App;
